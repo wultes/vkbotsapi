@@ -16,6 +16,12 @@
 git clone https://github.com/wultes/vkbotsapi
 ```
 
+Или вы можете использовать ```pip```:
+
+```bash
+pip install vkbotsapi
+```
+
 
 
 ### 🚀 Использование
