@@ -1,4 +1,4 @@
-[Русский](https://github.com/wultes/vkbotsapi/README.md) | [English](https://github.com/wultes/vkbotsapi/README_ENG.md)
+[Русский](https://github.com/wultes/vkbotsapi/blob/master/README.md) | [English](https://github.com/wultes/vkbotsapi/blob/master/README_ENG.md)
 
 # vkbotsapi
 
