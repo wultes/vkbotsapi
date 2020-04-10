@@ -63,7 +63,7 @@ Copyright © 2020 [Wultes](https://github.com/wultes/).
 
 
 
-### ✉️ Связь
+### ✉️ Communication
 
 If you have questions about the module, you can always contact me through [Telegram](https://t.me/wultes).
 
