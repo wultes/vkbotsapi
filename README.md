@@ -1,4 +1,4 @@
-[Русский](https://github.com/wultes/vkbotsapi/README.md) | [English](https://github.com/wultes/vkbotsapi/README_ENG.md)
+[Русский](https://github.com/wultes/vkbotsapi/blob/master/README.md) | [English](https://github.com/wultes/vkbotsapi/blob/master/README_ENG.md)
 
 # vkbotsapi
 
@@ -48,7 +48,7 @@ import random
 
 vk_api = VKAPI(token='', group_id='')
 vk_api.sendMessage(
-		message='Hello World',
+	message='Hello World',
     	peer_id='1',
     	random_id=random.randint(1, 10 ** 8)
 	)
