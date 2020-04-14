@@ -57,6 +57,43 @@ class VKAPI:
         upload_image = 'photo{0}_{1}'.format(save_response['response'][0]['owner_id'], save_response['response'][0]['id'])
 
         return upload_image
+
+    def uploadDocument(self, peer_id, path):
+        """Upload and save documents ONLY for message 
+        
+        peer_id - user id to whom the image is sent
+        path - path of image file
+        
+        """
+        
+        server_url = 'https://api.vk.com/method/docs.getMessagesUploadServer?type=doc&peer_id={0}&access_token={1}&v=5.103'.format(peer_id, self.token)
+        upload_server = requests.get(server_url).json()
+
+        document = self.openFile(path)
+
+        post_url = upload_server['response']['upload_url']
+        post_response = requests.post(post_url, files=dict(file=document)).json()
+        document = post_response['file']
+
+        save_url = 'https://api.vk.com/method/docs.save?file={0}&access_token={1}&v=5.103'.format(document, self.token)
+        save_response = requests.get(save_url).json()
+        upload_document = 'doc{0}_{1}'.format(save_response['response']['doc']['owner_id'], save_response['response']['doc']['id'])
+        
+        return upload_document
+    
+    def sendDocument(self, peer_id, path, random_id):
+        """Send Document ONLY for message
+        
+        peer_id - user id to whom the image is sent
+        path - path of image file
+        random_id - random integer number, but use a random.randint(1, 10 ** 8)
+        
+        """
+
+        document = self.uploadDocument(peer_id, path)
+        url_send = 'https://api.vk.com/method/messages.send?attachment={0}&peer_id={1}&access_token={2}&random_id={3}&v=5.103'.format(document, peer_id, self.token, random_id)
+        response_send = requests.get(url_send).json()
+
     
     def sendImage(self, peer_id, path, random_id):
         """Send Image ONLY for message
@@ -69,7 +106,6 @@ class VKAPI:
         photo = self.uploadImage(peer_id, path)
         url_send = 'https://api.vk.com/method/messages.send?attachment={0}&peer_id={1}&access_token={2}&random_id={3}&v=5.103'.format(photo, peer_id, self.token, random_id)
         response_send = requests.get(url_send).json()
-        print(response_send)
 
     
     def sendMessage(self, message, peer_id, random_id):
