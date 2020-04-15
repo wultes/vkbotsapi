@@ -56,6 +56,22 @@ vk_api.sendMessage(
 
 
 
+### 🔌 Functions description
+
+|    Function name     |                    Take                    |            Function description             |              Return               |
+| :------------------: | :----------------------------------------: | :-----------------------------------------: | :-------------------------------: |
+|  ```listenServer```  |                     -                      |      Listening LongPoll in real time.       |            ```event```            |
+| ```checkLongpoll```  |                     -                      |      Check updates in LongPoll server.      |           ```updates```           |
+| ```updateLongpoll``` |                     -                      |           Update LongPoll server.           | ```server```, ```key```, ```ts``` |
+|  ```uploadImage```   |         ```peer_id```, ```path```          |   Upload image for message on VK servers.   |        ```upload_image```         |
+|   ```sendImage```    | ```peer_id```, ```path```, ```random_id``` |            Send image in dialog.            |                 -                 |
+| ```uploadDocument``` |         ```peer_id```, ```path```          | Upload documents for message on VK servers. |       ```upload_document```       |
+|  ```sendDocument```  | ```peer_id```, ```path```, ```random_id``` |          Send document in dialog.           |                 -                 |
+
+*functions and table will be updated with each update*
+
+
+
 ### 📃 License
 
 This module is licensed. [MIT](https://choosealicense.com/licenses/mit/).  
