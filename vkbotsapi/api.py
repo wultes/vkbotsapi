@@ -16,7 +16,14 @@ class VKAPI:
 
         return response
 
+# Utils
+    def openFile(self, path):
+        file = open(path, 'rb')
+        
+        return file
 
+
+# LongPoll 
     def updateLongpoll(self):
         api_url = 'https://api.vk.com/method/groups.getLongPollServer?access_token={0}&group_id={1}&v=5.103'.format(self.token, self.group_id)
         response = requests.get(api_url).json()
@@ -42,12 +49,7 @@ class VKAPI:
             for event in self.checkLongpoll():
                 yield event
 
-    def openFile(self, path):
-        file = open(path, 'rb')
-        
-        return file
-
-
+# UploadServer 
     def uploadImage(self, peer_id, path):
         """Upload and save images ONLY for message
         
@@ -68,20 +70,6 @@ class VKAPI:
 
         return upload_image
 
-
-    def sendImage(self, peer_id, path, random_id):
-        """Send Image ONLY for message
-        
-        peer_id - user id to whom the image is sent
-        path - path of image file
-        random_id - random integer number, but use a random.randint(1, 10 ** 8)
-
-        """
-        photo = self.uploadImage(peer_id, path)
-        response_send = self.call('messages.send', attachment=photo, peer_id=peer_id, access_token=self.token, random_id=random_id)
-
-        return response_send
-
     def uploadDocument(self, peer_id, path):
         """Upload and save documents ONLY for message 
         
@@ -99,7 +87,21 @@ class VKAPI:
 
         save_response = self.call('docs.save', file=document, access_token=self.token)
         upload_document = 'doc{0}_{1}'.format(save_response['response']['doc']['owner_id'], save_response['response']['doc']['id'])
+      
+
+# Messages
+    def sendImage(self, peer_id, path, random_id):
+        """Send Image ONLY for message
         
+        peer_id - user id to whom the image is sent
+        path - path of image file
+        random_id - random integer number, but use a random.randint(1, 10 ** 8)
+
+        """
+        photo = self.uploadImage(peer_id, path)
+        response_send = self.call('messages.send', attachment=photo, peer_id=peer_id, access_token=self.token, random_id=random_id)
+
+        return response_send  
     
     def sendDocument(self, peer_id, path, random_id):
         """Send Document ONLY for message
@@ -124,8 +126,19 @@ class VKAPI:
         """
         response = self.call('messages.send', peer_id=peer_id, message=message, random_id=random_id, access_token=self.token)
 
-        return reponse 
+        return reponse
 
+    def deleteMessage(self, message_ids, group_id, delete_for_all):
+        response = self.call('messages.delete', message_ids=message_ids, group_id=group_id, delete_for_all=delete_for_all)
+
+        return response
+
+    def searchMessage(self, q, peer_id, data, group_id):
+        response = self.call('messages.search', q=q, peer_id=peer_id, data=data, group_id=group_id, access_token=self.token)
+
+        return response
+
+# Group Control
     def enableOnline(self):
         enable_online = self.call('groups.enableOnline', group_id=self.group_id, access_token=self.token)
 
@@ -168,6 +181,7 @@ class VKAPI:
     def unabanUser(self, user_id):
         unban_user = self.call('groups.unban', group_id=self.group_id, owner_id=user_id)
 
+# Type message
     def isNewMessage(self, event):
         """Check message type
         
@@ -178,5 +192,3 @@ class VKAPI:
             return True
         else:
             return False
-
-
