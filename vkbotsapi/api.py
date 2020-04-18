@@ -88,6 +88,7 @@ class VKAPI:
         save_response = self.call('docs.save', file=document, access_token=self.token)
         upload_document = 'doc{0}_{1}'.format(save_response['response']['doc']['owner_id'], save_response['response']['doc']['id'])
       
+        return upload_document
 
 # Messages
     def sendImage(self, peer_id, path, random_id):
