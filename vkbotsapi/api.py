@@ -129,13 +129,13 @@ class VKAPI:
 
         return reponse
 
-    def deleteMessage(self, message_ids, group_id, delete_for_all):
-        response = self.call('messages.delete', message_ids=message_ids, group_id=group_id, delete_for_all=delete_for_all)
+    def deleteMessage(self, message_ids, delete_for_all):
+        response = self.call('messages.delete', message_ids=message_ids, group_id=self.group_id, delete_for_all=delete_for_all)
 
         return response
 
-    def searchMessage(self, q, peer_id, data, group_id):
-        response = self.call('messages.search', q=q, peer_id=peer_id, data=data, group_id=group_id, access_token=self.token)
+    def searchMessage(self, q, data):
+        response = self.call('messages.search', q=q, data=data, group_id=self.group_id, access_token=self.token)
 
         return response
 
@@ -154,6 +154,11 @@ class VKAPI:
         banned_list = self.call('groups.getBanned', group_id=self.group_id, access_token=self.token)
 
         return banned_list
+
+    def getMembers(self):
+        member_list = self.call('groups.getMembers', group_id=self.group_id, access_token=self.token)
+
+        return member_list
 
     def isMember(self, user_id):
         """Check is the user a member of the community
@@ -177,10 +182,13 @@ class VKAPI:
 
     def banUser(self, user_id, reason, comment, comment_visible):
         ban_user = self.call('groups.ban', group_id=self.group_id, owner_id=user_id, reason=reason, comment=comment, comment_visible=comment_visible, access_token=self.token)
+        
         return ban_user
 
     def unabanUser(self, user_id):
         unban_user = self.call('groups.unban', group_id=self.group_id, owner_id=user_id)
+
+        return unban_user
 
 # Type message
     def isNewMessage(self, event):
