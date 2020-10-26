@@ -127,7 +127,7 @@ class VKAPI:
         """
         response = self.call('messages.send', peer_id=peer_id, message=message, random_id=random_id, access_token=self.token)
 
-        return reponse
+        return response
 
     def deleteMessage(self, message_ids, delete_for_all):
         response = self.call('messages.delete', message_ids=message_ids, group_id=self.group_id, delete_for_all=delete_for_all)
